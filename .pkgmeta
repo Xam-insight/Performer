@@ -1,4 +1,4 @@
-﻿package-as: Deadpool
+﻿package-as: Performer
 
 externals:
 	../EZBlizzardUiPopups: https://github.com/Xam-insight/EZBlizzardUiPopups

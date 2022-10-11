@@ -1,6 +1,6 @@
 ## Interface: 90207
 ## Title: Performer
-## Version: 1.6.25
+## Version: 1.7.0
 ## Author: xam_insight
 ## SavedVariables: P1_PerformerData, PerformerOptionsData, PerformerSoundsDisabled, GuildChatAnnouncement
 ## SavedVariablesPerCharacter: PerformerPosition
