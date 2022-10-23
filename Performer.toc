@@ -1,9 +1,10 @@
-## Interface: 90207
+## Interface: 100000
 ## Title: Performer
-## Version: 1.7.0
-## Author: xam_insight
+## Version: 1.7.1
+## Author: Xam_insight
 ## SavedVariables: P1_PerformerData, PerformerOptionsData, PerformerSoundsDisabled, GuildChatAnnouncement
 ## SavedVariablesPerCharacter: PerformerPosition
+## Dependencies: EZBlizzardUiPopups
 
 ..\EZBlizzardUiPopups\Libs\Ace3\LibStub\LibStub.lua
 ..\EZBlizzardUiPopups\Libs\Ace3\AceLocale-3.0\AceLocale-3.0.xml

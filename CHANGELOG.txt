@@ -1,3 +1,5 @@
-﻿- v1.7.0
+﻿- v1.7.1
+	- Updated for Dragonflight.
+- v1.7.0
 	- TOC for 9.2.7.
 	- Added support for CustomAchiever
