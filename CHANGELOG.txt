@@ -1,4 +1,6 @@
-﻿- v1.7.1
+﻿- v1.7.2
+	- [CustomAchiever]Fixed the click on achievement popup.
+- v1.7.1
 	- Updated for Dragonflight.
 - v1.7.0
 	- TOC for 9.2.7.
