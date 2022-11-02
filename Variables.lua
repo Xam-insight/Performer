@@ -107,34 +107,36 @@ PerformerTitles = {
 
 PerformerHeralds = {
 	["Alliance"] = {
-		["Default"] = "ALLIANCE_GUILD_HERALD",
-		["WARRIOR"] = "VARIAN",
-		["HUNTER"] = "HEMET",
-		["ROGUE"] = "RAVERHOLDT",
-		["PALADIN"] = "UTHER",
-		["PRIEST"] = "VELEN",
-		["SHAMAN"] = "NOBUNDO",
-		["MAGE"] = "KHADGAR",
-		["WARLOCK"] = "CHOGALL",
-		["MONK"] = "CHEN",
-		["DRUID"] = "MALFURION",
-		["DEMONHUNTER"] = "ILLIDAN",
-		["DEATHKNIGHT"] = "LICH_KING",
+		["Default"]     = {"ALLIANCE_GUILD_HERALD"},
+		["WARRIOR"]     = {"VARIAN"},
+		["HUNTER"]      = {"HEMET", "ALLERIA"},
+		["ROGUE"]       = {"RAVERHOLDT"},
+		["PALADIN"]     = {"UTHER", "TURALYON"},
+		["PRIEST"]      = {"VELEN", "ANDUIN"},
+		["SHAMAN"]      = {"NOBUNDO"},
+		["MAGE"]        = {"JAINA", "KHADGAR"},
+		["WARLOCK"]     = {"CHOGALL", "KANRETHAD"},
+		["MONK"]        = {"CHEN"},
+		["DRUID"]       = {"MALFURION"},
+		["DEMONHUNTER"] = {"ILLIDAN"},
+		["DEATHKNIGHT"] = {"LICH_KING", "BOLVAR"},
+		["EVOKER"]      = {"AZURATHEL"},
 	},
 	["Horde"] = {
-		["Default"] = "HORDE_GUILD_HERALD",
-		["WARRIOR"] = nil,
-		["HUNTER"] = nil,
-		["ROGUE"] = "RAVERHOLDT",
-		["PALADIN"] = nil,
-		["PRIEST"] = nil,
-		["SHAMAN"] = "THRALL",
-		["MAGE"] = nil,
-		["WARLOCK"] = "CHOGALL",
-		["MONK"] = "CHEN",
-		["DRUID"] = nil,
-		["DEMONHUNTER"] = "ILLIDAN",
-		["DEATHKNIGHT"] = "LICH_KING",
+		["Default"]     = {"HORDE_GUILD_HERALD"},
+		["WARRIOR"]     = {"SAURFANG", "GARROSH"},
+		["HUNTER"]      = {"REXXAR", "SYLVANAS"},
+		["ROGUE"]       = {"VALEERA"},
+		["PALADIN"]     = {"LIADRIN"},
+		["PRIEST"]      = {"FAOL"},
+		["SHAMAN"]      = {"THRALL"},
+		["MAGE"]        = {"KAELTHAS"},
+		["WARLOCK"]     = {"CHOGALL"},
+		["MONK"]        = {"CHEN"},
+		["DRUID"]       = {"HAMUUL"},
+		["DEMONHUNTER"] = {"ILLIDAN"},
+		["DEATHKNIGHT"] = {"LICH_KING"},
+		["EVOKER"]      = {"CINDRETHRESH"},
 	},
 }
 
@@ -153,7 +155,7 @@ StaticPopupDialogs["SETGUILDTITLE"] = {
 		local text = self.editBox:GetText()
 		if strtrim(text) ~= "" then
 			text = addUpperCaseOnFirstLetter(text)
-			Performer:SendCommMessage(PerformerGlobal_CommPrefix, "P1_Title#"..GetTime().."#"..text.."#"..PerformerGlobal_GuildName, "GUILD")
+			Performer_SendCommMessage("P1_Title#"..GetTime().."#"..text.."#"..PerformerGlobal_GuildName, "GUILD")
 			if GuildChatAnnouncement then
 				announceTitleOnGuildChan(text, PerformerGlobal_GuildName)
 			end

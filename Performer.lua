@@ -18,6 +18,57 @@ end
 function Performer:OnEnable()
 	-- Called when the addon is enabled
 	self:RegisterEvent("GUILD_ROSTER_UPDATE", "ActivateAddOn")
+	self:RegisterEvent("CLUB_STREAMS_LOADED", "test")
+	--self:RegisterEvent("CLUB_FINDER_RECRUITS_UPDATED", "test")
+	self:RegisterEvent("CLUB_MEMBER_ADDED", "test")
+	self:RegisterEvent("CLUB_MEMBER_REMOVED", "test")
+	self:RegisterEvent("CLUB_MEMBER_UPDATED", "test")
+	if not CustomAchiever then
+		LoadAddOn("Performer_CustomAchiever")
+	end
+end
+
+function Performer:test(event)
+	self:UnregisterEvent("CLUB_STREAMS_LOADED")
+	local clubs = C_Club.GetSubscribedClubs();
+	for i, club in ipairs(clubs) do
+		local clubInfo = C_Club.GetClubInfo(club.clubId)
+		if clubInfo.clubType == Enum.ClubType.Guild then
+			self:UnregisterEvent("CLUB_MEMBER_ADDED")
+			self:UnregisterEvent("CLUB_MEMBER_REMOVED")
+			self:UnregisterEvent("CLUB_MEMBER_UPDATED")
+			return
+		end
+	end
+	local clubInfos = {}
+	for i, club in ipairs(clubs) do
+		local clubInfo = C_Club.GetClubInfo(club.clubId)
+		if clubInfo.clubType ~= Enum.ClubType.Guild and clubInfo.clubType ~= Enum.ClubType.BattleNet then
+			charInfo = {}
+			self.memberIds = CommunitiesUtil.GetMemberIdsSortedByName(club.clubId)
+			if not self.allMemberList then
+				self.allMemberList = {}
+			end
+			self.allMemberList[club.clubId] = CommunitiesUtil.GetMemberInfo(club.clubId, self.memberIds)
+			for j, member in ipairs(self.allMemberList[club.clubId]) do
+				local fullName = Performer_addRealm(member.name)
+				if not clubInfos[fullName] then
+					clubInfos[fullName] = {}
+				end
+				clubInfos[fullName]["classFileName"] = C_CreatureInfo.GetClassInfo(member.classID).classFile
+				clubInfos[fullName]["rankIndex"] = member.role
+				clubInfos[fullName]["level"] = member.level
+				if not clubInfos[fullName]["clubId"] then
+					clubInfos[fullName]["clubId"] = {}
+				end
+				tinsert(clubInfos[fullName]["clubId"], club.clubId)
+			end
+		end
+	end
+	if countTableElements(clubInfos) > 0 then
+		charInfo = clubInfos
+		Performer:ActivateAddOn()
+	end
 end
 
 function Performer:ActivateAddOn()
@@ -87,7 +138,7 @@ function Performer:PerformerShow(input)
 				--	name = name.."-"..realm
 				--end
 				local text = addUpperCaseOnFirstLetter(input)
-				Performer:SendCommMessage(PerformerGlobal_CommPrefix, "P1_Title#"..GetTime().."#"..text.."#"..name, "GUILD")
+				Performer_SendCommMessage("P1_Title#"..GetTime().."#"..text.."#"..name, "GUILD", nil, Performer_addRealm(name, realm))
 				if GuildChatAnnouncement then
 					announceTitleOnGuildChan(text, name)
 				end
@@ -319,6 +370,30 @@ function isPlayerCharacter(aName)
 	return playerFullName.."-"..playerRealm == aName or playerFullName == aName
 end
 
+local Performer_pc
+function Performer_playerCharacter()
+	if not Performer_pc then
+		Performer_pc = Performer_fullName("player")
+	end
+	return Performer_pc
+end
+
+function Performer_fullName(unit)
+	local fullName = nil
+	if unit then
+		local playerName, playerRealm = UnitFullName(unit)
+		if playerName and playerName ~= "" and playerName ~= UNKNOWNOBJECT then
+			if not playerRealm or playerRealm == "" then
+				playerRealm = GetNormalizedRealmName()
+			end
+			if playerRealm and playerRealm ~= "" then
+				fullName = playerName.."-"..playerRealm
+			end
+		end
+	end
+	return fullName
+end
+
 function DetailsButton_Onclick(self)
 	local fullName = self:GetAttribute("fullName")
 	local details = getPData(PerformerGlobal_GuildName, fullName, "Details")
@@ -530,7 +605,7 @@ function tellDetailsToPayer(aCreature, text)
 			creature = "Default"
 		end
 
-		local creatureName = PerformerHeralds[factionGroup][creature]
+		local creatureName = PerformerHeralds[factionGroup][creature][math.random(1, #PerformerHeralds[factionGroup][creature])]
 		EZBlizzUiPop_npcDialog(creatureName, text)
 	end
 end

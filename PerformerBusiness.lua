@@ -97,7 +97,7 @@ end
 function announceTitle(aGuildName, aFullName)
 	local title = getPData(aGuildName, aFullName, "Title")
 	if title ~= nil and title ~= "0" and title ~= "AA_NoTitle" and title ~= "" then
-		Performer:SendCommMessage(PerformerGlobal_CommPrefix, "P1_Title#"..GetTime().."#"..title.."#"..aFullName, "GUILD")
+		Performer_SendCommMessage("P1_Title#"..GetTime().."#"..title.."#"..aFullName, "GUILD", nil, aFullName)
 		if GuildChatAnnouncement then
 			local titleLabel = PerformerTitles[title]["Title"]
 			announceTitleOnGuildChan(titleLabel, aFullName)
@@ -343,4 +343,16 @@ end
 
 function addUpperCaseOnFirstLetterBusiness(aText)
 	return string.utf8upper(string.utf8sub(strtrim(aText), 1 , 1))..string.utf8sub(strtrim(aText), 2)
+end
+
+function Performer_addRealm(aName, aRealm)
+	if aName and not string.match(aName, "-") then
+		if aRealm and aRealm ~= "" then
+			aName = aName.."-"..aRealm
+		else
+			local realm = GetNormalizedRealmName() or UNKNOWNOBJECT
+			aName = aName.."-"..realm
+		end
+	end
+	return aName
 end

@@ -1,15 +1,34 @@
 local L = LibStub("AceLocale-3.0"):GetLocale("Performer", true);
 
-function encodeAndSendGuildInfo(aData, aSender, aMessageTime)
+function Performer_SendCommMessage(text, distribution, target, aChar)
+	if IsInGuild() or distribution == "WHISPER" or not aChar then
+		Performer:SendCommMessage(PerformerGlobal_CommPrefix, text, distribution, target)
+	else
+		if aChar and charInfo[aChar] and countTableElements(charInfo[aChar]["clubId"]) > 0 then
+			local alreadySend = {}
+			for i, clubId in ipairs(charInfo[aChar]["clubId"]) do
+				for j, member in ipairs(Performer.allMemberList[clubId]) do
+					local fullName = Performer_addRealm(member.name)
+					if not alreadySend[fullName] then
+						alreadySend[fullName] = true
+						Performer:SendCommMessage(PerformerGlobal_CommPrefix, text, "WHISPER", fullName)
+					end
+				end
+			end
+		end
+	end
+end
+
+function encodeAndSendGuildInfo(aData, aTarget, aMessageTime)
 	--Performer:Print(time().." - Preparing message.")
 	local s = Performer:Serialize(aData)
 	--Performer:Print(time().." - Message OK.")
-	if aSender and aMessageTime then
-		Performer:SendCommMessage(PerformerGlobal_CommPrefix, "P1_Data#"..aMessageTime.."#"..s, "WHISPER", aSender)
+	if aTarget and aMessageTime then
+		Performer_SendCommMessage("P1_Data#"..aMessageTime.."#"..s, "WHISPER", aTarget)
 		--Performer:Print(time().." - Message envoye.")
-		--Performer:Print("Sent data to "..aSender..".")
+		--Performer:Print("Sent data to "..aTarget..".")
 	else
-		Performer:SendCommMessage(PerformerGlobal_CommPrefix, "P1_Data#"..GetTime().."#"..s, "GUILD")
+		Performer_SendCommMessage("P1_Data#"..GetTime().."#"..s, "GUILD")
 		--Performer:Print("Sent data to guild.")
 	end
 end
@@ -17,7 +36,7 @@ end
 function encodeAndSendSimpleData(aData)
 	local t = aData
 	local s = Performer:Serialize(t)
-	Performer:SendCommMessage(PerformerGlobal_CommPrefix, "P1_SimpleData#"..GetTime().."#"..s, "GUILD")
+	Performer_SendCommMessage("P1_SimpleData#"..GetTime().."#"..s, "GUILD", nil, Performer_playerCharacter())
 end
 
 function Performer:ReceiveDataFrame_OnEvent(prefix, message, distribution, sender)
@@ -69,7 +88,7 @@ function Performer:ReceiveDataFrame_OnEvent(prefix, message, distribution, sende
 			local temp = ACHIEVEMENT_UNLOCKED
 			ACHIEVEMENT_UNLOCKED = L["NEW_TITLE_FOR"].." "..messageParam
 			if CUSTAC and isPlayerCharacter(messageParam) and PerformerTitles[messageMessage] then
-				CustAc_CompleteAchievement(messageMessage, nil, false, true, not PerformerSoundsDisabled)
+				CustAc_CompleteAchievement(messageMessage, nil, false, true, PerformerSoundsDisabled)
 			else
 				EZBlizzUiPop_ToastFakeAchievementNew(Performer, title, tonumber(model), not PerformerSoundsDisabled, 15, ACHIEVEMENT_UNLOCKED, function()  PerformerFrame:Show()  end)
 			end
@@ -98,16 +117,16 @@ end
 function callForData()
 	--Performer:Print(time().." - Calling data!")
 	if isPlayerAdmin() then
-		Performer:SendCommMessage(PerformerGlobal_CommPrefix, "AdminCall#"..GetTime(), "GUILD")
+		Performer_SendCommMessage("AdminCall#"..GetTime(), "GUILD", nil, Performer_playerCharacter())
 	else
-		Performer:SendCommMessage(PerformerGlobal_CommPrefix, "Call#"..GetTime(), "GUILD")
+		Performer_SendCommMessage("Call#"..GetTime(), "GUILD", nil, Performer_playerCharacter())
 	end
 end
 
 function checkPerformerVersion()
-	Performer:SendCommMessage(PerformerGlobal_CommPrefix, "VersionCall#"..GetTime(), "GUILD")
+	Performer_SendCommMessage("VersionCall#"..GetTime(), "GUILD", nil, Performer_playerCharacter())
 end
 
 function sendVersion(aSender)
-	Performer:SendCommMessage(PerformerGlobal_CommPrefix, "Version#"..GetTime().."#"..GetAddOnMetadata("Performer", "Version"), "WHISPER", aSender)
+	Performer_SendCommMessage("Version#"..GetTime().."#"..GetAddOnMetadata("Performer", "Version"), "WHISPER", aSender)
 end

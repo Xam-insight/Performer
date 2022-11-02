@@ -15,7 +15,7 @@ function loadPerformerOptions()
 					enable = {
 						type = "toggle", order = 1,
 						name = L["ENABLE_SOUND"],
-								desc = L["ENABLE_SOUND_DESC"],
+						desc = L["ENABLE_SOUND_DESC"],
 						set = function(info, val) 
 							PerformerSoundsDisabled = not val
 						end,
@@ -25,6 +25,22 @@ function loadPerformerOptions()
 								enabled = not PerformerSoundsDisabled
 							end
 							initPerformerBusinessObjects()
+							return enabled
+						end
+					},
+					guildChatAnnounce = {
+						type = "toggle", order = 2,
+						name = L["GUILD_CHAT_ANNOUNCE"],
+						desc = L["GUILD_CHAT_ANNOUNCE_DESC"],
+						width = "full",
+						set = function(info, val) 
+							GuildChatAnnouncement = val
+						end,
+						get = function(info)
+							local enabled = false
+							if GuildChatAnnouncement ~= nil then
+								enabled = GuildChatAnnouncement
+							end
 							return enabled
 						end
 					},
@@ -268,23 +284,7 @@ function loadPerformerOptions()
 							},
 						},
 					},
-					newline2 = {type = "description", order = 4, name = "\n"},
-					guildChatAnnounce = {
-						type = "toggle", order = 5,
-						name = L["GUILD_CHAT_ANNOUNCE"],
-						desc = L["GUILD_CHAT_ANNOUNCE_DESC"],
-						width = "full",
-						set = function(info, val) 
-							GuildChatAnnouncement = val
-						end,
-						get = function(info)
-							local enabled = false
-							if GuildChatAnnouncement ~= nil then
-								enabled = GuildChatAnnouncement
-							end
-							return enabled
-						end
-					},
+					newline2 = {type = "description", order = 4, name = "\n "},
 				},
 			},
 			admin = {
@@ -365,5 +365,5 @@ function loadPerformerOptions()
 
 	ACR:RegisterOptionsTable("Performer", PerformerOptions)
 	ACD:AddToBlizOptions("Performer", "Performer")
-	ACD:SetDefaultSize("Performer", 585, 575)
+	ACD:SetDefaultSize("Performer", 600, 610)
 end

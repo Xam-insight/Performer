@@ -1,4 +1,8 @@
-﻿- v1.7.2
+﻿-v1.8.0
+	- Added clubs support when not in a guild.
+	- Added new TalkingHead heralds.
+	- [CustomAchiever] Fixed loading when main addon is already loaded.
+- v1.7.2
 	- [CustomAchiever]Fixed the click on achievement popup.
 - v1.7.1
 	- Updated for Dragonflight.
