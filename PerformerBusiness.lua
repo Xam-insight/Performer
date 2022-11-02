@@ -28,15 +28,6 @@ function initPerformerBusinessObjects()
 	if not PerformerOptionsData[PerformerGlobal_GuildName]["minLevel"] then
 		PerformerOptionsData[PerformerGlobal_GuildName]["minLevel"] = GetMaxPlayerLevel()
 	end
-
-	if CUSTAC then
-		CustAc_UpdateCategory("Performer", nil, "Performer")
-		for k,v in pairs(PerformerTitles) do
-			if k ~= "AA_NoTitle" then
-				CustAc_UpdateAchievement(k, "Performer", tonumber(v["icon"]), v["points"], v["Title"], v["desc"])
-			end
-		end
-	end
 end
 
 -- Change role value

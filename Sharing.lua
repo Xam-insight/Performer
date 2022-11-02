@@ -87,7 +87,7 @@ function Performer:ReceiveDataFrame_OnEvent(prefix, message, distribution, sende
 
 			local temp = ACHIEVEMENT_UNLOCKED
 			ACHIEVEMENT_UNLOCKED = L["NEW_TITLE_FOR"].." "..messageParam
-			if CUSTAC and isPlayerCharacter(messageParam) and PerformerTitles[messageMessage] then
+			if CustomAchiever and isPlayerCharacter(messageParam) and PerformerTitles[messageMessage] then
 				CustAc_CompleteAchievement(messageMessage, nil, false, true, PerformerSoundsDisabled)
 			else
 				EZBlizzUiPop_ToastFakeAchievementNew(Performer, title, tonumber(model), not PerformerSoundsDisabled, 15, ACHIEVEMENT_UNLOCKED, function()  PerformerFrame:Show()  end)
