@@ -90,7 +90,7 @@ function Performer:ReceiveDataFrame_OnEvent(prefix, message, distribution, sende
 			if CustomAchiever and isPlayerCharacter(messageParam) and PerformerTitles[messageMessage] then
 				CustAc_CompleteAchievement(messageMessage, nil, false, true, PerformerSoundsDisabled)
 			else
-				EZBlizzUiPop_ToastFakeAchievementNew(Performer, title, tonumber(model), not PerformerSoundsDisabled, 15, ACHIEVEMENT_UNLOCKED, function()  PerformerFrame:Show()  end)
+				EZBlizzUiPop_ToastFakeAchievementNew(Performer, title, tonumber(model), not PerformerSoundsDisabled, 4, ACHIEVEMENT_UNLOCKED, function()  PerformerFrame:Show()  end)
 			end
 			ACHIEVEMENT_UNLOCKED = temp
 			local color = GREEN_FONT_COLOR_CODE

@@ -3,7 +3,7 @@
 ## Version: 1.8.0
 ## Author: Xam_insight
 ## SavedVariables: P1_PerformerData, PerformerOptionsData, PerformerSoundsDisabled, GuildChatAnnouncement
-## SavedVariables: CustomAchieverData, CustomAchieverOptionsData, CustomAchieverMIcon, CustomAchieverWindow, CustAcCategoryList
+## SavedVariables: Performer_CustomAchieverData, Performer_CustomAchieverOptionsData
 ## SavedVariablesPerCharacter: PerformerPosition
 
 embeds.xml

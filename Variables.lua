@@ -94,7 +94,7 @@ PerformerTitles = {
 	["Enchant"]     = { ["Title"] = L["Enchant_Title"], ["desc"] = L["PERFORMER_TITLE"], ["icon"] = "463462", ["points"] = 0 },
 	["AOE"]         = { ["Title"] = L["AOE_Title"], ["desc"] = L["PERFORMER_TITLE"], ["icon"] = "132352", ["points"] = 0 },
 	["Moving"]      = { ["Title"] = L["Moving_Title"], ["desc"] = L["PERFORMER_TITLE"], ["icon"] = "135239", ["points"] = 0 },
-	["Perfect"]     = { ["Title"] = L["Perfect_Title"], ["desc"] = L["PERFORMER_TITLE"], ["icon"] = "236550", ["points"] = 0 },
+	["Perfect"]     = { ["Title"] = L["Perfect_Title"], ["desc"] = L["PERFORMER_TITLE"], ["icon"] = "236550", ["points"] = 10 },
 	["Listening"]   = { ["Title"] = L["Listening_Title"], ["desc"] = L["PERFORMER_TITLE"], ["icon"] = "1044996", ["points"] = 10 },
 	["Savior"]      = { ["Title"] = L["Savior_Title"], ["desc"] = L["PERFORMER_TITLE"], ["icon"] = "135955", ["points"] = 10 },
 	["Veteran"]     = { ["Title"] = L["Veteran_Title"], ["desc"] = L["PERFORMER_TITLE"], ["icon"] = "236648", ["points"] = 10 },

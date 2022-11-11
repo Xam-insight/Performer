@@ -27,10 +27,10 @@ function Performer:OnEnable()
 		LoadAddOn("Performer_CustomAchiever")
 	end
 	if CustomAchiever then
-		CustAc_UpdateCategory("Performer", nil, "Performer")
+		CustAc_CreateOrUpdateCategory("Performer", nil, "Performer")
 		for k,v in pairs(PerformerTitles) do
 			if k ~= "AA_NoTitle" then
-				CustAc_UpdateAchievement(k, "Performer", tonumber(v["icon"]), v["points"], v["Title"], v["desc"])
+				CustAc_CreateOrUpdateAchievement(k, "Performer", tonumber(v["icon"]), v["points"], v["Title"], v["desc"])
 			end
 		end
 	end
