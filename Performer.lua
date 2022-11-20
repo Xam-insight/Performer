@@ -18,11 +18,6 @@ end
 function Performer:OnEnable()
 	-- Called when the addon is enabled
 	self:RegisterEvent("GUILD_ROSTER_UPDATE", "ActivateAddOn")
-	self:RegisterEvent("CLUB_STREAMS_LOADED", "test")
-	--self:RegisterEvent("CLUB_FINDER_RECRUITS_UPDATED", "test")
-	self:RegisterEvent("CLUB_MEMBER_ADDED", "test")
-	self:RegisterEvent("CLUB_MEMBER_REMOVED", "test")
-	self:RegisterEvent("CLUB_MEMBER_UPDATED", "test")
 	if not CustomAchiever then
 		LoadAddOn("Performer_CustomAchiever")
 	end
@@ -66,6 +61,7 @@ function Performer:test(event)
 				clubInfos[fullName]["classFileName"] = C_CreatureInfo.GetClassInfo(member.classID).classFile
 				clubInfos[fullName]["rankIndex"] = member.role
 				clubInfos[fullName]["level"] = member.level
+				clubInfos[fullName]["online"] = member.presence == 1				
 				if not clubInfos[fullName]["clubId"] then
 					clubInfos[fullName]["clubId"] = {}
 				end
@@ -577,6 +573,7 @@ function generatePerformerTable()
 
 		minLevel = PerformerOptionsData[PerformerGlobal_GuildName]["minLevel"]
 		includeRank = PerformerOptionsData[PerformerGlobal_GuildName]["includeRank"]
+		print(PerformerGlobal_GuildName, includeRank)
 		local indexCharac = 0
 		for k,v in pairs(charNames) do
 			if string.find(string.upper(v), searchBoxText) -- Search box result

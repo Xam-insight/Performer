@@ -282,6 +282,48 @@ function loadPerformerOptions()
 									generatePerformerTable()
 								end,
 							},
+							ignoreClubRank1 = {
+								type = "toggle", order = 1,
+								name = COMMUNITY_MEMBER_ROLE_NAME_LEADER,
+								desc = L["LIST_INCLUDE_RANKS_DESC"],
+								hidden = IsInGuild(),
+								get = function(i)
+									local includeRankValue = true
+									if PerformerOptionsData[PerformerGlobal_GuildName] and PerformerOptionsData[PerformerGlobal_GuildName]["includeRank"]
+										and PerformerOptionsData[PerformerGlobal_GuildName]["includeRank"]["c1"] ~= nil then
+										includeRankValue = PerformerOptionsData[PerformerGlobal_GuildName]["includeRank"]["c1"]
+									end
+									return includeRankValue
+								end,
+								set = function(i, v)
+									if not PerformerOptionsData[PerformerGlobal_GuildName]["includeRank"] then
+										PerformerOptionsData[PerformerGlobal_GuildName]["includeRank"] = {}
+									end
+									PerformerOptionsData[PerformerGlobal_GuildName]["includeRank"]["c1"] = v
+									generatePerformerTable()
+								end,
+							},
+							ignoreClubRank2 = {
+								type = "toggle", order = 2,
+								name = COMMUNITY_MEMBER_ROLE_NAME_MEMBER,
+								desc = L["LIST_INCLUDE_RANKS_DESC"],
+								hidden = IsInGuild(),
+								get = function(i)
+									local includeRankValue = true
+									if PerformerOptionsData[PerformerGlobal_GuildName] and PerformerOptionsData[PerformerGlobal_GuildName]["includeRank"]
+										and PerformerOptionsData[PerformerGlobal_GuildName]["includeRank"]["c2"] ~= nil then
+										includeRankValue = PerformerOptionsData[PerformerGlobal_GuildName]["includeRank"]["c2"]
+									end
+									return includeRankValue
+								end,
+								set = function(i, v)
+									if not PerformerOptionsData[PerformerGlobal_GuildName]["includeRank"] then
+										PerformerOptionsData[PerformerGlobal_GuildName]["includeRank"] = {}
+									end
+									PerformerOptionsData[PerformerGlobal_GuildName]["includeRank"]["c2"] = v
+									generatePerformerTable()
+								end,
+							},
 						},
 					},
 					newline2 = {type = "description", order = 4, name = "\n "},

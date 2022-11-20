@@ -9,7 +9,7 @@ function Performer_SendCommMessage(text, distribution, target, aChar)
 			for i, clubId in ipairs(charInfo[aChar]["clubId"]) do
 				for j, member in ipairs(Performer.allMemberList[clubId]) do
 					local fullName = Performer_addRealm(member.name)
-					if not alreadySend[fullName] then
+					if charInfo[fullName]["online"] and not alreadySend[fullName] then
 						alreadySend[fullName] = true
 						Performer:SendCommMessage(PerformerGlobal_CommPrefix, text, "WHISPER", fullName)
 					end

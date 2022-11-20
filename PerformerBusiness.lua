@@ -134,6 +134,7 @@ function getRosterInfo()
 		charInfo[fullName]["classFileName"] = classFileName
 		charInfo[fullName]["rankIndex"] = rankIndex
 		charInfo[fullName]["level"] = level
+		charInfo[fullName]["online"] = online
 		clearCharacter(fullName)
 	end
 
